@@ -1,6 +1,9 @@
-# Job Tracker
+# Personalized Job Tracker
 
-A **real-world job application management tool** that helps users track every stage of their job hunt — from application to offer. It includes all **CRUD functionality, smart filters, application timelines, and visual statistics** to monitor progress. The app uses **React Context** for state management, reusable components for scalability and maintainability, and React-Bootstrap for a clean, responsive UI.
+A **real-world job application management tool** that helps users track every stage of their job hunt — from application to offer.  
+It includes all **CRUD functionalities, smart filters, application timelines, and visual statistics** to monitor progress.  
+The app uses **React Context** for state management, reusable components for scalability and maintainability, and **React-Bootstrap** for a clean, responsive UI.
+
 ---
 
 ## Project Purpose

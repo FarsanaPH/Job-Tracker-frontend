@@ -1,10 +1,8 @@
 # Personalized Job Tracker
 
-A **real-world job application management tool** that helps users track every stage of their job hunt — from application to offer.  
-It includes all **CRUD functionalities, smart filters, application timelines, and visual statistics** to monitor progress.  
+A **real-world job application management tool** that helps users track every stage of their job hunt — from application to offer.  It includes all **CRUD functionalities, smart filters, application timelines, and visual statistics** to monitor progress.  
 The app uses **React Context** for state management, reusable components for scalability and maintainability, and **React-Bootstrap** for a clean, responsive UI.
 
----
 
 ## Project Purpose
 
@@ -12,8 +10,6 @@ This project is built to simulate a **personalized job tracking system** where u
 - Store and manage all their job applications  
 - Update statuses as they progress through interviews and offers  
 - Set reminders and track timelines visually  
-
----
 
 ## Features
 
@@ -24,8 +20,6 @@ This project is built to simulate a **personalized job tracking system** where u
 -  **Dashboard with Stats & Charts** (Track total applications, interviews, offers, rejections)    
 -  **Follow-up Reminders** and toast notifications
 -  **Responsive UI** with color-coded statuses
-
----
 
 ## Tech Stack
 

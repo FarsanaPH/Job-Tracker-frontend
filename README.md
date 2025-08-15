@@ -1,12 +1,37 @@
-# React + Vite
+# Personalized Job Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **real-world job application management tool** that helps users track every stage of their job hunt — from application to offer.  It includes all **CRUD functionalities, smart filters, application timelines, and visual statistics** to monitor progress.  
+The app uses **React Context** for state management, reusable components for scalability and maintainability, and **React-Bootstrap** for a clean, responsive UI.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Purpose
 
-## Expanding the ESLint configuration
+This project is built to simulate a **personalized job tracking system** where users can:  
+- Store and manage all their job applications  
+- Update statuses as they progress through interviews and offers  
+- Set reminders and track timelines visually  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+-  **Full CRUD Functionality** (Add, View, Update, Delete job applications)  
+-  **Smart Filters & Search** (Filter by status or search by company/role)  
+-  **Application Timeline** for each job entry
+-  **Component Reusability** (Same modals and cards)
+-  **Dashboard with Stats & Charts** (Track total applications, interviews, offers, rejections)    
+-  **Follow-up Reminders** and toast notifications
+-  **Responsive UI** with color-coded statuses
+
+## Tech Stack
+
+- **React** – Component-based UI  
+- **Bootstrap / React-Bootstrap** – Layout & styling  
+- **JavaScript (ES6+)** – Core logic  
+- **JSON Server** – Mock REST API for data storage  
+- **Node.js** – Backend runtime environment  
+- **Chart.js** – For visual application statistics  
+- **Vite** – Fast build tool
+
+---
+
+> “Organized tracking leads to better opportunities — this tracker helps you find the right one.”  — *Thanks for visiting the project!* 😊
+

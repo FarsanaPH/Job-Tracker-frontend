@@ -1,0 +1,15 @@
+
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer, { setUser } from "./userSlice";
+
+const store = configureStore({
+    reducer: {
+        user: userReducer
+    },
+});
+
+// Rehydrate user from localStorage
+const storedUser = localStorage.getItem("jt_user");
+if (storedUser) store.dispatch(setUser(JSON.parse(storedUser)));
+
+export default store;

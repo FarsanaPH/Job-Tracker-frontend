@@ -17,16 +17,18 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage />} />
 
-        {/* Protected Pages */}
+        {/* Protected Pages start*/}
         <Route path="/" element={<ProtectedRoute>    <DashLayout />      </ProtectedRoute>}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="jobs" element={<JobListPage />} />
         </Route>
+
         <Route path="/jobs/:id" element={  <ProtectedRoute>  <JobDetailsPage />   </ProtectedRoute> } />
+         {/* protected pages end */}
 
       </Routes>
 
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={2000} />
 
     </>
   );

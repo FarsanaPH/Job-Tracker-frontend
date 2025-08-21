@@ -30,8 +30,8 @@ export const addFormDataAPI = async(reqBody) => {
 }
 
 // get All Apply Data
-export const getAllFormDataAPI = async () => {
-    return await commonApi("GET",`${serverURL}/applications`)
+export const getUserSpecificFormDataAPI = async (userId) => {
+    return await commonApi("GET",`${serverURL}/applications?userId=${userId}`)
 }
 
 // // Delete a job data

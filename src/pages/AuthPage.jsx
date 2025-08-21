@@ -37,7 +37,7 @@ function AuthPage() {
     } else {  //login
       const res = await loginAPI({ email: formData.email, password: formData.password });
       if (res?.status === 200 && Array.isArray(res.data) && res.data.length > 0) {
-        // console.log("Login success:", res.data[0]); // <---shows logged-in user details
+        console.log("Login success:", res.data[0]); // <---shows logged-in user details
         const user = res.data[0];
         dispatch(setUser(user));
         toast.success(`Login successful! Welcome ${user.name}.`);

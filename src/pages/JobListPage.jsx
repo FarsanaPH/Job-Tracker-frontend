@@ -1,30 +1,44 @@
 import { useEffect, useState } from "react";
-import { FiFilter, FiSearch, FiPlus, FiChevronDown } from "react-icons/fi";
+import { FiSearch, FiChevronDown } from "react-icons/fi";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import ManageModal from "../components/ManageModal";
 import ApplyCard from "../components/ApplyCard";
-import { getAllFormDataAPI } from "../service/allApi";
+import { getUserSpecificFormDataAPI } from "../service/allApi";
+import { useSelector } from "react-redux";
 
-
-function applctnListPage() {
+function JobListPage() {
   const [formData, setFormData] = useState([]);
-  const [isFormDataChanged, setIsFormDataChanged] = useState()
+  const [isFormDataChanged, setIsFormDataChanged] = useState();
+  const [searchTerm, setSearchTerm] = useState(""); // 🔹 state for search input
 
-  const getAllFormData = async () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+
+  const getUserSpecificFormData = async () => {
     try {
-      const res = await getAllFormDataAPI()
-      console.log("All Data getted from db.json", res);
-      setFormData(res.data) // to show getted data  on webpage - result.data in array
+      if (!currentUser) return;
 
+      const res = await getUserSpecificFormDataAPI(currentUser.id);
+      console.log("User-specific data fetched from backend:", res);
+
+      setFormData(res.data); // already filtered by backend
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
-    getAllFormData()
-  }, [isFormDataChanged])  //refresh page each time applctn add - ie,really applctn data changed like delte update,add
+    getUserSpecificFormData();
+  }, [isFormDataChanged, currentUser]);
 
+  // 🔹 Filter data by company, role, or location
+  const filteredData = formData.filter((app) => {
+    const search = searchTerm.toLowerCase();
+    return (
+      app.company?.toLowerCase().includes(search) ||
+      app.jobTitle?.toLowerCase().includes(search) ||
+      app.location?.toLowerCase().includes(search)
+    );
+  });
 
   return (
     <div>
@@ -41,8 +55,10 @@ function applctnListPage() {
           <FiSearch className="text-gray-500 mr-2" />
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search by company, role, or location..."
             className="outline-none flex-1"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)} // 🔹 update search term
           />
         </div>
 
@@ -53,33 +69,29 @@ function applctnListPage() {
         </button>
       </div>
 
-
       {/* Add applctn Button */}
       <ManageModal setIsFormDataChanged={setIsFormDataChanged} />
 
       {/* applctn Cards */}
-      <div className="space-y-4 me-20 ">
-        {
-          formData?.length > 0 ? (
-
-            formData?.map((applctn) => (
-              <div
-                key={applctn.id}
-                className="bg-white p-4 rounded-lg shadow border border-gray-200"
-              >
-                <ApplyCard  applctn={applctn} setIsFormDataChanged={setIsFormDataChanged}/>
-              </div>
-            ))
-
-
-          ) : (
-            "NO APPLICATIONS"
-          )
-        }
+      <div className="space-y-4 me-20">
+        {filteredData?.length > 0 ? (
+          filteredData.map((applctn) => (
+            <div
+              key={applctn.id}
+              className="bg-white p-4 rounded-lg shadow border border-gray-200"
+            >
+              <ApplyCard
+                applctn={applctn}
+                setIsFormDataChanged={setIsFormDataChanged}
+              />
+            </div>
+          ))
+        ) : (
+          "NO APPLICATIONS"
+        )}
       </div>
-
     </div>
   );
 }
 
-export default applctnListPage
+export default JobListPage;

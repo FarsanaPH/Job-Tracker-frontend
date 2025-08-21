@@ -4,11 +4,14 @@ import { FiPlus } from 'react-icons/fi';
 import { FaRegEdit } from 'react-icons/fa';
 import { addFormDataAPI, getEditFormDataAPI, updateEditFormDataAPI } from '../service/allApi';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 
 function ManageModal({ isEdit, setIsFormDataChanged, applyId }) {
     const [isOpen, setIsOpen] = useState(false);
     const [status, setStatus] = useState("applied");
+
+    const currentUser = useSelector((state) => state.user.currentUser);
 
     // Form state
     const [formData, setFormData] = useState({
@@ -33,10 +36,16 @@ function ManageModal({ isEdit, setIsFormDataChanged, applyId }) {
         }
     };
 
+    // application adding to backend with userid so we can fetch each users applctn seperately in each ones dashboard ie,A sees his applctns ,B sees his
+    const newApplctn = {
+        ...formData,
+        userId: currentUser.id, 
+    };
+
     // Save data to backend
     const addFormData = async () => {
         try {
-            const res = await addFormDataAPI(formData);
+            const res = await addFormDataAPI(newApplctn);
             console.log(res);
             if (res.status >= 200 && res.status < 300) {
                 toast("Application added successfully!");
@@ -64,55 +73,50 @@ function ManageModal({ isEdit, setIsFormDataChanged, applyId }) {
     };
 
     const getEditFormData = async () => {
-    try {
-      const result = await getEditFormDataAPI(applyId)
-      console.log("edit data getted from db json is:", result); //result.data in object
-      setFormData(result.data)
-    } catch (err) {
-      console.log(err);
+        try {
+            const result = await getEditFormDataAPI(applyId)
+            console.log("edit data getted from db json is:", result); //result.data in object
+            setFormData(result.data)
+        } catch (err) {
+            console.log(err);
+        }
     }
-  }
 
-  const updateEditFormData = async () => {
-    // const { jobTitle, company, location, salary, description } = jobData //destructure
-    // if (!jobTitle || !company || !location || !salary || !description) {
-    //   alert(`Fill the Data Completely!!`)
-    // } else {
-      try {
-        const result = await updateEditFormDataAPI(applyId, formData)
-        console.log("updated data to db json is:", result); //result.data in object
-        setIsFormDataChanged(result) //useState from parent Dashboard.jsx to make webpage know somethng added otherwise not show until refresh
-        handleClose()
-      } catch (err) {
-        console.log(err);
-      }
-    // }
-  }
-
-  const handleClose = () => setIsOpen(false);
-  const handleShow = () => {
-    setIsOpen(true);
-    if (isEdit && applyId) { //to only call when edit button is clicked
-      getEditFormData();
+    const updateEditFormData = async () => {
+        try {
+            const result = await updateEditFormDataAPI(applyId, newApplctn)
+            console.log("updated data to db json is:", result); //result.data in object
+            setIsFormDataChanged(result) //useState from parent Dashboard.jsx to make webpage know somethng added otherwise not show until refresh
+            handleClose()
+        } catch (err) {
+            console.log(err);
+        }
     }
-  }
+
+    const handleClose = () => setIsOpen(false);
+    const handleShow = () => {
+        setIsOpen(true);
+        if (isEdit && applyId) { //to only call when edit button is clicked
+            getEditFormData();
+        }
+    }
 
     return (
         <>
             {/* Add New Application Button */}
             {
                 isEdit ? (
-                     <button
+                    <button
                         onClick={handleShow}
                         className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
-                        
+
                     >
                         <FaRegEdit />
                     </button>
 
-                    
+
                 ) : (
-                   <button
+                    <button
                         onClick={handleShow}
                         className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg mb-6 hover:bg-blue-600"
                     >
@@ -126,14 +130,14 @@ function ManageModal({ isEdit, setIsFormDataChanged, applyId }) {
                 <div className="fixed top-10 left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg w-full max-w-2xl p-6 z-50">
                     {
                         isEdit ? (
-                                   <h2 className="text-lg font-semibold mb-4">Edit Application</h2>
-                        ):(
-                                    <h2 className="text-lg font-semibold mb-4">Add New Application</h2>
+                            <h2 className="text-lg font-semibold mb-4">Edit Application</h2>
+                        ) : (
+                            <h2 className="text-lg font-semibold mb-4">Add New Application</h2>
                         )
-            }
-                        
-                    
-            
+                    }
+
+
+
                     <div className="space-y-4">
                         {/* Row 1 */}
                         <div className="grid grid-cols-2 gap-4">

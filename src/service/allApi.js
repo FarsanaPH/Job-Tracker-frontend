@@ -29,7 +29,7 @@ export const addFormDataAPI = async(reqBody) => {
     return await commonApi("POST",`${serverURL}/applications`,reqBody)
 }
 
-// get All Apply Data
+// get User Specific application Data
 export const getUserSpecificFormDataAPI = async (userId) => {
     return await commonApi("GET",`${serverURL}/applications?userId=${userId}`)
 }

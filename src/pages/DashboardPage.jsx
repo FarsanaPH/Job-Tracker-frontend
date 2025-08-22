@@ -1,41 +1,46 @@
 // Dashboard.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { getUserSpecificFormDataAPI } from "../service/allApi";
+import { useSelector } from "react-redux";
+import DashboardCards from "../components/DashboardCards";
+import LineChart from "../components/LineChart";
 
 // registering chart components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function Dashboard() {
-  
-
-  const data = {
-    labels: ["Aug 1", "Aug 6", "Aug 11", "Aug 16", "Aug 21", "Aug 29"],
-    datasets: [
-      {
-        label: "Applied",
-        data: [0, 0, -1, 1, 2, 4],
-        borderColor: "#3B82F6",
-        backgroundColor: "rgba(59, 130, 246, 0.2)",
-        tension: 0.4,
-      },
-    ],
-  };
+  // const data = {
+  //   labels: ["Aug 1", "Aug 6", "Aug 11", "Aug 16", "Aug 21", "Aug 29"],
+  //   datasets: [
+  //     {
+  //       label: "Applied",
+  //       data: [0, 0, -1, 1, 2, 4],
+  //       borderColor: "#3B82F6",
+  //       backgroundColor: "rgba(59, 130, 246, 0.2)",
+  //       tension: 0.4,
+  //     },
+  //   ],
+  // };
 
   const recentApplications = [
-    { company: "Google", position: "Frontend Developer", status: "Interview", logo: "https://www.google.com/favicon.ico" },
-    { company: "Microsoft", position: "Data Scientist", status: "Applied", logo: "https://www.microsoft.com/favicon.ico" },
-    { company: "Amazon", position: "Software Engineer", status: "Offer", logo: "https://www.amazon.com/favicon.ico" },
-    { company: "Facebook", position: "Backend Developer", status: "Rejected", logo: "https://www.facebook.com/favicon.ico" },
+    { company: "Google", position: "Frontend Developer", status: "interview", logo: "https://www.google.com/favicon.ico" },
+    { company: "Microsoft", position: "Data Scientist", status: "applied", logo: "https://www.microsoft.com/favicon.ico" },
+    { company: "Amazon", position: "Software Engineer", status: "offer", logo: "https://www.amazon.com/favicon.ico" },
+    { company: "Facebook", position: "Backend Developer", status: "rejected", logo: "https://www.facebook.com/favicon.ico" },
   ];
 
+
   const statusColors = {
-    Applied: "bg-blue-400",
-    Interview: "bg-orange-400",
-    Offer: "bg-green-400",
-    Rejected: "bg-red-400",
+    applied: "bg-blue-400",
+    interview: "bg-orange-400",
+    offer: "bg-green-400",
+    rejected: "bg-red-400",
+    bookmarked: "bg-gray-400",
   };
+
 
   return (
     <>
@@ -45,19 +50,16 @@ function Dashboard() {
       </div>
 
       {/* Status Cards */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
-        <div className="bg-blue-400 text-white p-6 rounded shadow">7<br /><span>Applied</span></div>
-        <div className="bg-orange-400 text-white p-6 rounded shadow">3<br /><span>Interview</span></div>
-        <div className="bg-green-400 text-white p-6 rounded shadow">2<br /><span>Offer</span></div>
-        <div className="bg-red-400 text-white p-6 rounded shadow">2<br /><span>Rejected</span></div>
-      </div>
+      < DashboardCards />
 
       {/* Chart & Recent Applications */}
       <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-2 bg-white p-6 rounded shadow">
+        <LineChart />
+        {/* <div className="col-span-2 bg-white p-6 rounded shadow">
           <h3 className="font-semibold mb-4">Application Status</h3>
           <Line data={data} />
-        </div>
+        </div> */}
+
 
         <div className="bg-white p-6 rounded shadow">
           <h3 className="font-semibold mb-4">Recent Applications</h3>

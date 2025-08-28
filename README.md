@@ -45,5 +45,5 @@ This project is built to simulate a **personalized job tracking system** where u
 
 ---
 
-> “Organized tracking leads to better opportunities — this tracker helps you find the right one.”  — *Thanks for visiting the project!* 😊
+> “This tracker helps you find your right oppurtunity with the right tracking.”  — *Thanks for visiting the project!* 😊
 

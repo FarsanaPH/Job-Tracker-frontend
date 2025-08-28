@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { FiSearch, FiChevronDown } from "react-icons/fi";
-import { IoPersonCircleSharp } from "react-icons/io5";
+import { FiSearch } from "react-icons/fi";
 import ManageModal from "../components/ManageModal";
 import ApplyCard from "../components/ApplyCard";
 import { getUserSpecificFormDataAPI } from "../service/allApi";
 import { useSelector } from "react-redux";
+import DashTopper from "../components/DashTopper";
+import { motion, AnimatePresence } from "framer-motion";
 
 function JobListPage() {
   const [formData, setFormData] = useState([]);
@@ -13,9 +14,9 @@ function JobListPage() {
   const [sortBy, setSortBy] = useState("All"); // state for sorting
   // const [showSortOptions, setShowSortOptions] = useState(false); // dropdown toggle
 
-
   const currentUser = useSelector((state) => state.user.currentUser);
 
+  // get userspecific data
   const getUserSpecificFormData = async () => {
     try {
       if (!currentUser) return;
@@ -50,32 +51,30 @@ function JobListPage() {
     );
   }
 
+
   return (
-    <div>
-      {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold">Applications</h2>
-        <IoPersonCircleSharp className="text-4xl text-gray-400" />
-      </div>
+    <div className="mb-5 md:mb-3">
+      {/* Topper of both page */}
+      <DashTopper />
 
       {/* Search + sort */}
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-2 mb-4">
         {/* Search */}
-        <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 flex-1">
-          <FiSearch className="text-gray-500 mr-2" />
+        <div className="flex items-center border border-gray-300 rounded-lg px-3 py-2 flex-1 min-w-0">
+          <FiSearch className="text-gray-500 mr-2 shrink-0" />
           <input
             type="text"
             placeholder="Search by company, role, or location..."
-            className="outline-none flex-1"
+            className="outline-none flex-1 text-sm sm:text-base "
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)} //  set search term
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
         {/* Sort By */}
-        <div >
+        <div className="w-32 sm:w-40 shrink-0">
           <select
-            className="border border-gray-300 rounded-lg px-3 py-2 pr-8 text-gray-500"
+            className="border border-gray-300 rounded-lg px-3 py-1.5 md:py-2 text-gray-500 w-full"
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
@@ -89,8 +88,7 @@ function JobListPage() {
           </select>
         </div>
       </div>
-
-      {/* OR */}
+      {/* OR sort by this*/}
       {/* <div className="relative">
           <button
             className="flex items-center border border-gray-300 rounded-lg px-3 py-2 whitespace-nowrap"
@@ -121,26 +119,29 @@ function JobListPage() {
         </div> */}
 
 
-      {/* Add applctn Button */}
+      {/* Add application Button */}
       <ManageModal setIsFormDataChanged={setIsFormDataChanged} />
 
-      {/* applctn Cards */}
-      <div className="space-y-4 me-20">
-        {filteredData?.length > 0 ? (
-          filteredData.map((applctn) => (
-            <div
-              key={applctn.id}
-              className="bg-white p-4 rounded-lg shadow border border-gray-200"
-            >
-              <ApplyCard
-                applctn={applctn}
-                setIsFormDataChanged={setIsFormDataChanged}
-              />
-            </div>
-          ))
-        ) : (
-          "NO APPLICATIONS"
-        )}
+      {/* APPLICATION CARDS */}
+      <div className="grid grid-cols-1 md:mr-17 gap-4">
+        <AnimatePresence>
+          {filteredData?.length > 0 ? (
+            [...filteredData]  // copy so original isn't mutated
+              .sort((a, b) => new Date(b.date) - new Date(a.date)) // newest first
+              .map((applctn) => (
+                <motion.div key={applctn.id}
+                  initial={{ opacity: 1, x: 0 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 200 }} // Slide to right & fade out
+                  transition={{ duration: 0.3 ,ease: "easeOut",}}
+                >
+                  <ApplyCard applctn={applctn} setIsFormDataChanged={setIsFormDataChanged} />
+                </motion.div>
+              ))
+          ) : (
+            "NO APPLICATIONS YET"
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

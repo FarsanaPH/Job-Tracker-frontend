@@ -21,7 +21,11 @@ export const findUserByEmailAPI = (email) => {
   return commonApi("GET", url);
 };
 
-
+// ---------------------for profilepic
+// Update User Profile Pic
+export const updateUserProfilePicAPI = (id, reqBody) => {
+  return commonApi("PATCH", `${serverURL}/users/${id}`, reqBody);
+};
 
 // ---------------------------For Jobs
 // add Apply Data

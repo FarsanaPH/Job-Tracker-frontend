@@ -44,17 +44,17 @@ function DashboardCards() {
   }, []);
 
 
-
-
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-5  gap-4 mb-8">
-        <div className="bg-blue-400 text-white p-6 rounded shadow">{counts?.applied}<br /><span>Applied</span></div>
-        <div className="bg-gray-400 text-white p-6 rounded shadow">{counts?.bookmarked}<br /><span>Bookmarked</span></div>
-        <div className="bg-orange-400 text-white p-6 rounded shadow">{counts?.interview}<br /><span>Interview</span></div>
-        <div className="bg-green-400 text-white p-6 rounded shadow">{counts?.offer}<br /><span>Offer</span></div>
-        <div className="bg-red-400 text-white p-6 rounded shadow">{counts?.rejected}<br /><span>Rejected</span></div>
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-4 mb-8">
+        <div className="bg-blue-400 text-white p-3 md:p-6 rounded shadow">{counts?.applied}<br /><span>Applied</span></div>
+        <div className="bg-gray-400 text-white p-3 md:p-6 rounded shadow">{counts?.bookmarked}<br /><span>Bookmarked</span></div>
+        <div className="bg-orange-400 text-white p-3 md:p-6 rounded shadow">{counts?.interview}<br /><span>Interview</span></div>
+        <div className="bg-green-400 text-white p-3 md:p-6 rounded shadow">{counts?.offer}<br /><span>Offer</span></div>
+        <div className="bg-red-400 text-white p-3 md:p-6 rounded shadow">{counts?.rejected}<br /><span>Rejected</span></div>
       </div>
+
+      
     </>
   )
 }

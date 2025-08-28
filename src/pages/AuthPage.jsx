@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { setUser } from "../redux/userSlice";
 import { registerAPI, loginAPI, findUserByEmailAPI } from "../service/allApi"; // <-- use service APIs
 import { toast } from "react-toastify";
+import { IoPersonCircle } from "react-icons/io5";
 
 function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(true);
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", password: "", profilePic: "" });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,10 +54,13 @@ function AuthPage() {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <div className="flex w-[710px] h-110 shadow-lg">
+      <div className="flex w-[710px] h-110 shadow-lg md:mx-0 mx-4">
         {/* Left / Sign Up */}
         {isSignUp ? (
-          <div className="w-1/2 bg-black text-white border border-white p-8 flex flex-col justify-center rounded-l-lg">
+          <div className="w-full md:w-1/2 bg-black text-white border border-white p-8 flex flex-col justify-center rounded-lg md:rounded-r-none">
+            <div className=" flex md:hidden justify-center text-7xl mb-4">
+              <IoPersonCircle  />
+            </div>
             <h2 className="text-xl font-bold mb-4">SIGN UP</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input type="text" name="name" placeholder="Name"
@@ -68,16 +72,17 @@ function AuthPage() {
                 onChange={handleChange} required />
               <input type="password" name="password" placeholder="Password"
                 autoComplete="current-password"
-                className="w-full p-2 2 bg-white text-gray-600 border  rounded"
+                className="w-full p-2  bg-white text-gray-600 border  rounded"
                 onChange={handleChange} required />
               <button type="submit"
                 className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200">
                 SIGN UP
               </button>
+               <p className="flex md:hidden">Are you already a User?<span onClick={() => setIsSignUp(false)} className="text-blue-600 ml-1 underline">Sign In</span></p>
             </form>
           </div>
         ) : (
-          <div className="w-1/2 bg-white text-black p-8 flex flex-col justify-center rounded-l-lg">
+          <div className="w-1/2 hidden md:flex flex-col justify-center bg-white text-black p-8  rounded-l-lg">
             <h2 className="text-xl font-bold mb-2">HELLO, FRIEND!</h2>
             <p className="text-sm text-gray-600 mb-4">
               Enter your personal details and start your journey with us.
@@ -91,7 +96,7 @@ function AuthPage() {
 
         {/* Right / Sign In */}
         {isSignUp ? (
-          <div className="w-1/2 bg-white text-black p-8 flex flex-col justify-center rounded-r-lg">
+          <div className="w-1/2 hidden md:flex flex-col justify-center bg-white text-black p-8 rounded-r-lg">
             <h2 className="text-xl font-bold mb-2">WELCOME BACK!</h2>
             <p className="text-sm text-gray-600 mb-4">
               To keep connected with us, please login with your personal info.
@@ -102,7 +107,10 @@ function AuthPage() {
             </button>
           </div>
         ) : (
-          <div className="w-1/2 bg-black text-white p-8 flex flex-col justify-center border border-white rounded-r-lg">
+          <div className="w-full md:w-1/2 flex flex-col justify-center bg-black text-white p-8 border border-white rounded-lg md:rounded-l-none">
+            <div className=" flex md:hidden justify-center text-7xl mb-6">
+              <IoPersonCircle  />
+            </div>
             <h2 className="text-xl font-bold mb-4">SIGN IN</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input type="email" name="email" placeholder="Email"
@@ -117,6 +125,7 @@ function AuthPage() {
                 className="bg-white text-black px-4 py-2 rounded hover:bg-gray-200">
                 SIGN IN
               </button>
+              <p className="flex md:hidden">Are you a new User?<span onClick={() => setIsSignUp(true)} className="text-blue-600 ml-1 underline">Sign Up</span></p>
             </form>
           </div>
         )}

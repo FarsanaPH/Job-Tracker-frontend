@@ -80,9 +80,9 @@ function LineChart() {
   // };
 
   return (
-    <div className="col-span-2 bg-white p-6 rounded shadow">
-      <h3 className="font-semibold mb-4">Application Progress</h3>
-      {chartData ? <Line data={chartData} /> : <p>Loading chart...</p>}
+    <div className="col-span-1 md:col-span-2 min-h-100 bg-white py-6 px-2 md:p-6 rounded shadow">
+      <h3 className="font-semibold px-3 md:px-0 mb-4">Application Progress</h3>
+      {chartData ? <Line data={chartData} className="min-h-75"/> : <p>Loading chart...</p>}
     </div>
   );
 }

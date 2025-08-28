@@ -4,11 +4,11 @@ import { Route, Routes } from 'react-router-dom';
 import LandingPage from "./pages/LandingPage";
 import DashboardPage from "./pages/DashboardPage";
 import JobListPage from "./pages/JobListPage";
-import JobDetailsPage from "./pages/JobDetailsPage";
 import { ToastContainer } from "react-toastify";
 import AuthPage from './pages/AuthPage';
 import DashLayout from './pages/DashLayout';
 import ProtectedRoute from "./components/ProtectedRoute";
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   return (
@@ -22,13 +22,12 @@ function App() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="jobs" element={<JobListPage />} />
         </Route>
+        {/* protected pages end */}
 
-        <Route path="/jobs/:id" element={  <ProtectedRoute>  <JobDetailsPage />   </ProtectedRoute> } />
-         {/* protected pages end */}
-
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
 
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer position="bottom-right" autoClose={2000} />
 
     </>
   );

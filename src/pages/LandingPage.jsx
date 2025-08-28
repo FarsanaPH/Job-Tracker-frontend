@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Img from "../assets/landingpic.png"
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { PiEyesFill } from "react-icons/pi";
@@ -13,10 +13,10 @@ function LandingPage() {
         <div className="bg-gray-900 text-white min-h-screen flex flex-col">
             {/* Navbar */}
             <header className="flex justify-between items-end px-8 py-4 h-15 border-b border-gray-800">
-                <div className="flex items-center justify-center gap-1 ">  
-                    <PiEyesFill className="text-3xl text-green-400 " />                  
+                <div className="flex items-center justify-center gap-1 ">
+                    <PiEyesFill className="text-3xl text-green-400 " />
                     <h1 className="text-2xl font-bold">JobTracker</h1>
-                    
+
                 </div>
                 <button
                     onClick={() => navigate("/auth")}
@@ -29,20 +29,20 @@ function LandingPage() {
             {/* Main Content */}
             <main className="flex-1">
                 {/* Hero Section */}
-                <div className="flex flex-col items-center text-center px-6 py-16">
+                <div className="flex flex-col items-center text-center px-6 py-5 md:py-16">
                     <motion.img
                         src={Img}
                         alt="Track your applications"
-                        className="w-100 h-74 pt-6 mt-10 mb-3"
+                        className="w-100 h-64 md:h-74 pt-6 mt-10 mb-7 md:mb-3"
                         animate={{ y: [0, -10, 0] }}   // moves up 20px and back down
                         transition={{
-                            duration: 2,       
-                            repeat: Infinity,   
-                            repeatType: "loop", 
-                            ease: "easeInOut", 
+                            duration: 2,
+                            repeat: Infinity,
+                            repeatType: "loop",
+                            ease: "easeInOut",
                         }}
                     />
-                    <h2 className="text-3xl md:text-2xl heading-style mb-4 uppercase">
+                    <h2 className="text-xl md:text-2xl heading-style mb-4 uppercase">
                         Organize and Track All Your Job Applications in One Place
                     </h2>
                     <p className="text-gray-300 max-w-xl mb-6">
@@ -58,7 +58,7 @@ function LandingPage() {
                 </div>
 
                 {/* Features Section */}
-                <section className=" py-12 px-6">
+                <section className=" md:py-12 pt-12 px-6">
                     <h3 className="text-center text-2xl font-semibold mb-8">Why JobTracker?</h3>
                     <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto mb-20">
                         <div className="bg-gray-800 p-6 text-center">
@@ -88,7 +88,7 @@ function LandingPage() {
 
             <footer className="bg-gray-900 border-t border-gray-800  text-gray-400">
                 {/* Main Footer Section */}
-                <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 border-b border-gray-700">
+                <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 ">
 
                     {/* About */}
                     <div>
@@ -130,8 +130,8 @@ function LandingPage() {
                 </div>
 
                 {/* Bottom Footer Bar */}
-                <div className="text-center py-4 text-sm ">
-                    © {new Date().getFullYear()} JobTracker. All rights reserved.
+                <div className="text-center py-4 mx-9 md:mx-70 text-sm border-t border-gray-700">
+                    <span>&copy; {new Date().getFullYear()} JobTracker. All rights reserved.</span>
                 </div>
             </footer>
 
